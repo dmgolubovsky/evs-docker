@@ -1,6 +1,6 @@
 # Build espeak-ng and Haskell programs necessary to use the Espeak Vocal Studio
 
-from ubuntu:19.10
+from ubuntu:19.10 as base-ubuntu
 
 run cp /etc/apt/sources.list /etc/apt/sources.list~
 run sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list
@@ -19,6 +19,8 @@ run mkdir -p /src
 
 # Build espeak-ng
 
+from base-ubuntu as espeak
+
 run apt-fast install -y autoconf automake libtool make
 
 workdir /src
@@ -28,4 +30,48 @@ run ./autogen.sh
 run ./configure --prefix=/espvs
 run make
 run make install
+
+# Install Haskell Stack
+
+from base-ubuntu as stack
+
+run apt-fast install -y wget
+run wget -qO- https://get.haskellstack.org/ | sed 's/apt-get/apt-fast/g' | sh
+run stack upgrade
+
+# Build hsespeak
+
+from stack as hsespeak
+
+workdir /src
+add hsespeak hsespeak
+workdir hsespeak
+run stack build
+run stack install
+run mkdir -p /espvs/bin
+run cp /root/.local/bin/lyrvoc /espvs/bin
+run mkdir -p /espvs/examples
+run cp /src/hsespeak/*.musicxml /espvs/examples
+
+# Final assembly. Pull all parts together.
+
+from base-ubuntu as evs
+
+# No recommended and/or suggested packages here
+
+run echo "APT::Get::Install-Recommends \"false\";" >> /etc/apt/apt.conf
+run echo "APT::Get::Install-Suggests \"false\";" >> /etc/apt/apt.conf
+run echo "APT::Install-Recommends \"false\";" >> /etc/apt/apt.conf
+run echo "APT::Install-Suggests \"false\";" >> /etc/apt/apt.conf
+
+run apt-fast install -y sox
+
+copy --from=espeak /espvs /espvs
+copy --from=hsespeak /espvs /espvs
+
+# Flatten the image
+
+from scratch
+
+copy --from=evs / /
 
