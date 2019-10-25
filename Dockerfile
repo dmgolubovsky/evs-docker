@@ -1,6 +1,6 @@
 # Build espeak-ng and Haskell programs necessary to use the Espeak Vocal Studio
 
-from ubuntu:19.10 as base-ubuntu
+from ubuntu:18.04 as base-ubuntu
 
 run cp /etc/apt/sources.list /etc/apt/sources.list~
 run sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list
@@ -21,7 +21,7 @@ run mkdir -p /src
 
 from base-ubuntu as espeak
 
-run apt-fast install -y autoconf automake libtool make
+run apt-fast install -y autoconf automake libtool make libsonic-dev
 
 workdir /src
 add espeak-ng espeak-ng
@@ -64,7 +64,7 @@ run echo "APT::Get::Install-Suggests \"false\";" >> /etc/apt/apt.conf
 run echo "APT::Install-Recommends \"false\";" >> /etc/apt/apt.conf
 run echo "APT::Install-Suggests \"false\";" >> /etc/apt/apt.conf
 
-run apt-fast install -y sox
+run apt-fast install -y sox libsonic0
 
 copy --from=espeak /espvs /espvs
 copy --from=hsespeak /espvs /espvs
