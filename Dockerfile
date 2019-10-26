@@ -52,6 +52,7 @@ run mkdir -p /espvs/bin
 run cp /root/.local/bin/lyrvoc /espvs/bin
 run mkdir -p /espvs/examples
 run cp /src/hsespeak/*.musicxml /espvs/examples
+add voices /espvs/voices
 
 # Final assembly. Pull all parts together.
 
@@ -64,7 +65,7 @@ run echo "APT::Get::Install-Suggests \"false\";" >> /etc/apt/apt.conf
 run echo "APT::Install-Recommends \"false\";" >> /etc/apt/apt.conf
 run echo "APT::Install-Suggests \"false\";" >> /etc/apt/apt.conf
 
-run apt-fast install -y sox libsonic0
+run apt-fast install -y sox libsonic0 strace
 
 copy --from=espeak /espvs /espvs
 copy --from=hsespeak /espvs /espvs

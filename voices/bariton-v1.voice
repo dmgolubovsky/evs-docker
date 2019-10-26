@@ -1,0 +1,36 @@
+name bariton v1
+language en-us
+phonemes en-us
+gender male
+pitch 246 246
+flutter 6
+breath 1 1 1 0 0 0 0 0
+roughness 2
+intonation 2
+dictrules 3 6
+voicing 89
+consonants 30 30
+tone 80 65 185 90 300 61 800 74
+
+replace 03 i  i
+replace 03 i2 i
+
+formant 0 100 57 17 32
+formant 1 74 116 114 114
+formant 2 100 119 137 152
+formant 3 120 124 119 144
+formant 4 100 0 0 0
+formant 5 100 0 0 0
+formant 6 100 72 67 0
+formant 7 100 65 44 0
+formant 8 100 65 43 0
+
+replace 03 i  i
+replace 03 i2 i
+
+stressLength 1000 1000 1000 1000 1000 1000 1000 1000
+
+stressAdd 0 0 0 0 0 0 0 0
+
+stressAmp 20 20 20 20 20 20 20 20
+

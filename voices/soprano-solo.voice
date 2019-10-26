@@ -1,0 +1,36 @@
+name soprano solo
+language en-us
+phonemes en-us
+gender female
+pitch 438 438
+flutter 28
+breath 0 0 0 0 0 0 0 0
+roughness 7
+intonation 2
+dictrules 3 6
+voicing 95
+consonants 0 0
+tone 80 68 185 99 300 61 478 53
+
+replace 03 i  i
+replace 03 i2 i
+
+formant 0 100 119 17 0
+formant 1 63 0 284 0
+formant 2 101 95 235 398
+formant 3 100 98 243 134
+formant 4 100 0 0 0
+formant 5 100 0 0 0
+formant 6 100 92 125 0
+formant 7 100 65 44 0
+formant 8 100 65 43 0
+
+replace 03 i  i
+replace 03 i2 i
+
+stressLength 1000 1000 1000 1000 1000 1000 1000 1000
+
+stressAdd 0 0 0 0 0 0 0 0
+
+stressAmp 20 20 20 20 20 20 20 20
+
