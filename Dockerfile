@@ -37,6 +37,7 @@ from base-ubuntu as stack
 
 run apt-fast install -y wget
 run wget -qO- https://get.haskellstack.org/ | sed 's/apt-get/apt-fast/g' | sh
+run stack update
 run stack upgrade
 
 # Build hsespeak
@@ -46,7 +47,7 @@ from stack as hsespeak
 workdir /src
 add hsespeak hsespeak
 workdir hsespeak
-run stack build
+run stack build --only-dependencies
 run stack install
 run mkdir -p /espvs/bin
 run cp /root/.local/bin/lyrvoc /espvs/bin
