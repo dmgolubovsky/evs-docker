@@ -4,3 +4,6 @@
 [submodule "hsespeak"]
 	path = hsespeak
 	url = https://github.com/dmgolubovsky/hsespeak.git
+[submodule "protorhymer"]
+	path = protorhymer
+	url = https://github.com/dmgolubovsky/protorhymer.git

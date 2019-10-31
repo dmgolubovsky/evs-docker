@@ -55,6 +55,21 @@ run mkdir -p /espvs/examples
 run cp /src/hsespeak/*.musicxml /espvs/examples
 add voices /espvs/voices
 
+# Build protorhymer
+
+from stack as prhymer
+
+workdir /src
+add protorhymer protorhymer
+workdir protorhymer
+run stack build --only-dependencies
+run stack install
+run mkdir -p /espvs/bin
+run cp /root/.local/bin/prhymer /espvs/bin
+add pubdom_wikipedia /espvs/examples/
+run mkdir -p /espvs/share/prhymer
+run cp /src/protorhymer/ipacat.txt /espvs/share/prhymer
+
 # Final assembly. Pull all parts together.
 
 from base-ubuntu as evs
@@ -66,14 +81,21 @@ run echo "APT::Get::Install-Suggests \"false\";" >> /etc/apt/apt.conf
 run echo "APT::Install-Recommends \"false\";" >> /etc/apt/apt.conf
 run echo "APT::Install-Suggests \"false\";" >> /etc/apt/apt.conf
 
-run apt-fast install -y sox libsonic0 strace
+run apt-fast install -y sox libsonic0 strace locales
 
 copy --from=espeak /espvs /espvs
 copy --from=hsespeak /espvs /espvs
+copy --from=prhymer /espvs /espvs
+
+run locale-gen en_US.UTF-8
+
+run apt-fast clean
 
 # Flatten the image
 
 from scratch
 
 copy --from=evs / /
+env PATH=/usr/bin:/usr/local/bin:/espvs/bin
+env LANG=en_US.UTF-8
 
