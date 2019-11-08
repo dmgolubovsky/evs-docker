@@ -70,6 +70,21 @@ add pubdom_wikipedia /espvs/examples/
 run mkdir -p /espvs/share/prhymer
 run cp /src/protorhymer/ipacat.txt /espvs/share/prhymer
 
+# Build espvs
+
+from stack as espvs
+
+run apt-fast install -y pkg-config libgtk-3-dev
+
+workdir /src
+add espvs espvs
+workdir espvs
+run stack build --only-dependencies
+run stack install
+run mkdir -p /espvs/bin /espvs/share/espvs
+run cp /root/.local/bin/espvs /espvs/bin
+run cp /src/espvs/espvs.ui /espvs/share/espvs
+
 # Final assembly. Pull all parts together.
 
 from base-ubuntu as evs
@@ -81,11 +96,13 @@ run echo "APT::Get::Install-Suggests \"false\";" >> /etc/apt/apt.conf
 run echo "APT::Install-Recommends \"false\";" >> /etc/apt/apt.conf
 run echo "APT::Install-Suggests \"false\";" >> /etc/apt/apt.conf
 
-run apt-fast install -y sox libsonic0 strace locales
+
+run apt-fast install -y sox libsonic0 strace locales libgtk-3.0
 
 copy --from=espeak /espvs /espvs
 copy --from=hsespeak /espvs /espvs
 copy --from=prhymer /espvs /espvs
+copy --from=espvs /espvs /espvs
 
 run locale-gen en_US.UTF-8
 
@@ -96,6 +113,6 @@ run apt-fast clean
 from scratch
 
 copy --from=evs / /
-env PATH=/usr/bin:/usr/local/bin:/espvs/bin
+env PATH=/bin:/usr/bin:/usr/local/bin:/espvs/bin
 env LANG=en_US.UTF-8
 

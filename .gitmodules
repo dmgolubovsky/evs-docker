@@ -7,3 +7,6 @@
 [submodule "protorhymer"]
 	path = protorhymer
 	url = https://github.com/dmgolubovsky/protorhymer.git
+[submodule "espvs"]
+	path = espvs
+	url = https://github.com/dmgolubovsky/espvs.git
