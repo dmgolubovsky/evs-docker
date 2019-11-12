@@ -1,6 +1,6 @@
 # Build espeak-ng and Haskell programs necessary to use the Espeak Vocal Studio
 
-from ubuntu:18.04 as base-ubuntu
+from ubuntu:19.04 as base-ubuntu
 
 run cp /etc/apt/sources.list /etc/apt/sources.list~
 run sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list
@@ -18,6 +18,7 @@ run echo "MIRRORS=( 'http://archive.ubuntu.com/ubuntu, http://de.archive.ubuntu.
 run apt-fast -y update && apt-fast -y upgrade
 
 run mkdir -p /src
+
 
 # Build espeak-ng
 
@@ -106,7 +107,7 @@ copy --from=hsespeak /espvs /espvs
 copy --from=prhymer /espvs /espvs
 copy --from=espvs /espvs /espvs
 
-run locale-gen en_US.UTF-8
+run /usr/sbin/locale-gen en_US.UTF-8
 
 run apt-fast clean
 
