@@ -97,7 +97,7 @@ run echo "APT::Install-Recommends \"false\";" >> /etc/apt/apt.conf
 run echo "APT::Install-Suggests \"false\";" >> /etc/apt/apt.conf
 
 
-run apt-fast install -y sox libsonic0 strace locales libgtk-3.0
+run apt-fast install -y sox libsonic0 strace locales libgtk-3.0 alsa-utils
 
 copy --from=espeak /espvs /espvs
 copy --from=hsespeak /espvs /espvs
