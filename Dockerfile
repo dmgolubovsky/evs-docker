@@ -13,6 +13,8 @@ run echo debconf apt-fast/maxdownloads string 16 | debconf-set-selections
 run echo debconf apt-fast/dlflag boolean true | debconf-set-selections
 run echo debconf apt-fast/aptmanager string apt-get | debconf-set-selections
 
+run echo "MIRRORS=( 'http://archive.ubuntu.com/ubuntu, http://de.archive.ubuntu.com/ubuntu, http://ftp.halifax.rwth-aachen.de/ubuntu, http://ftp.uni-kl.de/pub/linux/ubuntu, http://mirror.informatik.uni-mannheim.de/pub/linux/distributions/ubuntu/' )" >> /etc/apt-fast.conf
+
 run apt-fast -y update && apt-fast -y upgrade
 
 run mkdir -p /src
@@ -97,7 +99,7 @@ run echo "APT::Install-Recommends \"false\";" >> /etc/apt/apt.conf
 run echo "APT::Install-Suggests \"false\";" >> /etc/apt/apt.conf
 
 
-run apt-fast install -y sox libsonic0 strace locales libgtk-3.0 alsa-utils
+run apt-fast install -y sox libsonic0 strace locales libgtk-3.0 alsa-utils musescore
 
 copy --from=espeak /espvs /espvs
 copy --from=hsespeak /espvs /espvs
