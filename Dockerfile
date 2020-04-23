@@ -1,6 +1,6 @@
 # Build espeak-ng and Haskell programs necessary to use the Espeak Vocal Studio
 
-from ubuntu:19.04 as base-ubuntu
+from ubuntu:19.10 as base-ubuntu
 
 run cp /etc/apt/sources.list /etc/apt/sources.list~
 run sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list
